@@ -1,0 +1,82 @@
+LAMMPS (15 May 2015)
+  using 1 OpenMP thread(s) per MPI task
+package gpu 1
+package gpu 1
+# Input file for running an NPT Equilibration with LAMMPS, File name = in.P3HTHuang150_700_NPT
+
+read_restart restart.P3HTHuang150_700_E
+WARNING: Restart file used different # of processors (../read_restart.cpp:705)
+WARNING: Restart file used different newton pair setting, using input script value (../read_restart.cpp:727)
+  orthogonal box = (15208.1 15208.1 15208.1) to (15513.5 15513.5 15513.5)
+  2 by 3 by 4 MPI processor grid
+  315000 atoms
+  314300 bonds
+  417200 angles
+  415800 dihedrals
+  3 = max # of 1-2 neighbors
+  5 = max # of 1-3 neighbors
+  11 = max # of 1-4 neighbors
+  14 = max # of special neighbors
+pair_style table/gpu linear 187
+angle_style table linear 200
+bond_style table linear 200
+special_bonds lj 0 0 0
+pair_coeff 1 1 HuangPair2.table P1P1
+pair_coeff 1 2 HuangPair2.table P1P2
+pair_coeff 1 3 HuangPair2.table P1P3
+pair_coeff 2 2 HuangPair2.table P2P2
+pair_coeff 2 3 HuangPair2.table P2P3
+pair_coeff 3 3 HuangPair2.table P3P3
+bond_coeff 1 HuangBond.table Bond1
+bond_coeff 2 HuangBond.table Bond2
+bond_coeff 3 HuangBond.table Bond3
+angle_coeff 1 HuangAngle.table Angle1
+angle_coeff 2 HuangAngle.table Angle2
+angle_coeff 3 HuangAngle.table Angle3
+angle_coeff 4 HuangAngle.table Angle4
+fix 1 all npt temp 423 423 100 iso 0.0 1 1000 drag 2
+fix 2 all momentum 1 linear 1 1 1
+dump 1 all custom 500 snap.lammpstrj id type xs ys zs
+thermo_style custom step temp press etotal density
+thermo 200
+timestep 2
+run 1000
+Neighbor list info ...
+  0 neighbor list requests
+  update every 1 steps, delay 10 steps, check yes
+  master list distance cutoff = 22
+Memory usage per processor = 29.8665 Mbytes
+Step Temp Press TotEng Density 
+  700000    422.79596    5.4388633    54812.436    1.0173737 
+  700200    422.49625   -13.423069    54600.162    1.0170666 
+  700400    423.13437   -7.4990086    54916.997    1.0170007 
+  700600    423.32901   -17.088486    55062.002    1.0161871 
+  700800    423.37305     14.73722    55302.636     1.016995 
+  701000     423.0058   -16.127973    55433.696    1.0171568 
+Loop time of 38.816 on 24 procs (24 MPI x 1 OpenMP) for 1000 steps with 315000 atoms
+
+Pair  time (%) = 28.0097 (72.1602)
+Bond  time (%) = 5.76753 (14.8587)
+Neigh time (%) = 0.0879083 (0.226474)
+Comm  time (%) = 2.5542 (6.58028)
+Outpt time (%) = 0.0450457 (0.116049)
+Other time (%) = 2.35159 (6.0583)
+
+Nlocal:    13125 ave 13221 max 12883 min
+Histogram: 1 0 0 1 2 3 1 4 7 5
+Nghost:    25015.5 ave 25207 max 24734 min
+Histogram: 1 0 0 3 4 4 4 3 3 2
+Neighs:    0 ave 0 max 0 min
+Histogram: 24 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 0
+Ave neighs/atom = 0
+Ave special neighs/atom = 8.6
+Neighbor list builds = 29
+Dangerous builds = 0
+unfix 1
+unfix 2
+write_restart restart.P3HTHuang150_700BM
+
+Please see the log.cite file for references relevant to this simulation
+
