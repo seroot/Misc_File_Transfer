@@ -1,0 +1,25 @@
+Created on Sat oct 18 5:24:10 2014
+
+		100 atoms
+		195 bonds
+		195 angles
+		195 dihedrals
+		0 impropers
+
+		1 atom type
+		1 bond type
+		1 angle type
+		0 improper types
+
+		0.000000  86.400000 xlo xhi
+		0.000000  86.400000 ylow yhi
+		0.000000  86.400000 zlow zhi
+
+Masses
+
+	1    155.0110 # Thiophene unit
+
+Bond Coeffs
+
+
+	1 	 
